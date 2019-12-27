@@ -5,11 +5,11 @@ public class PetFollow : MonoBehaviour
     [Header("跟蹤速度"), Range(0f, 50f)]
     public float speed = 1.5f;
 
-    private Transform player;
+    private Transform target;
 
     private void Start()
     {
-        player = GameObject.Find("野蠻人").transform;
+        target = GameObject.Find("跟隨目標").transform;
     }
 
     private void LateUpdate()
@@ -19,15 +19,17 @@ public class PetFollow : MonoBehaviour
 
     private void Track()
     {
-        Vector3 posplayer = player.position;
+        Vector3 postarget = target.position;
         Vector3 pospet = transform.position;
 
+      
+
+
+        transform.position = Vector3.Lerp(pospet, postarget, 0.5f * Time.deltaTime * speed);
+
         
-        posplayer.z -= 5;
 
-        transform.position = Vector3.Lerp(pospet, posplayer, 0.5f * Time.deltaTime * speed);
-
-        transform.LookAt(posplayer);
+        transform.LookAt(postarget);
 
     }
 }
